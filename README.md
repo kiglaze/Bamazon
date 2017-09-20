@@ -33,3 +33,6 @@ node bamazonCustomer.js
 node bamazonManager.js
 =========================
 The prompts will explain what to do.
+
+#Video code demo walkthrough.
+You can watch a demo of my code working if you play the video file: code_demo_walkthrough.mp4
