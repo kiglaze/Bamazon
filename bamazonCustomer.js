@@ -9,7 +9,6 @@ connection.connect(function(err) {
   	console.log(err);
   	throw err;
   } 
-  console.log("connected......");
   start(connection);
 });
 
