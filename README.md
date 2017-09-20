@@ -8,7 +8,8 @@ If you wish, you can run all the SQL before "LOAD DATA LOCAL INFILE", and import
 #SQL database credentials file.
 Create a file called "creds.js" in the same directory as the files bamazonCustomer.js and bamazonManager.js.
 Make it look like this:
-=========================
+
+```
 module.exports = {
   host: "localhost",
   port: 3306,
@@ -20,7 +21,8 @@ module.exports = {
   password: "your_password_here",
   database: "bamazon"
 };
-=========================
+```
+
 Edit it to have the username and password info corresponding to your MySQL connection.
 
 #NPM
@@ -28,10 +30,12 @@ Run "npm install" in the directory you are working in (the same directory as the
 
 #Running the Node JS applications.
 You can run both CLI applications in the terminal like so:
-=========================
+
+```
 node bamazonCustomer.js
 node bamazonManager.js
-=========================
+```
+
 The prompts will explain what to do.
 
 #Video code demo walkthrough.
