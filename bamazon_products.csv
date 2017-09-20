@@ -1,0 +1,11 @@
+item_id,product_name,department_name,price,stock_quantity
+1,Cheese,Grocery,1.10,5
+2,Car Oil,Automotive,15.50, 2
+3,Fan,Home Improvement,30.41,9
+4,Tomato,Grocery,0.80,19
+5,Television,Electronics,512.12,3
+6,Oranges,Grocery,0.70,77
+7,Sunglasses,Accessories,60.34,58
+8,Laptop,Electronics,811.22,4
+9,Printers,Electronics,233.11,6
+10,Doorbell,Home Improvement, 20.01,99
