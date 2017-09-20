@@ -101,12 +101,24 @@ function promptAddProductDetails(callback) {
     {
       name: "priceAddProduct",
       type: "input",
-      message: "Please enter the price of the new product you would like to create.\n"
+      message: "Please enter the price of the new product you would like to create.\n",
+      validate: function(str) {
+      	if(isNaN(parseFloat(str)) || parseFloat(str) <= 0) {
+      		return false;
+      	}
+      	return true;
+      }
     },
     {
       name: "qtyAddProduct",
       type: "input",
-      message: "Please enter the quantity of the new product you would like to create.\n"
+      message: "Please enter the quantity of the new product you would like to create.\n",
+      validate: function(str) {
+      	if(isNaN(parseInt(str)) || !Number.isInteger(parseInt(str)) || parseInt(str) <= 0) {
+      		return false;
+      	}
+      	return true;
+      }
     }
     ])
     .then(function(answer) {
@@ -168,12 +180,24 @@ function promptAddProductInventory(callback) {
     {
       name: "addInvProductId",
       type: "input",
-      message: "Please enter the id of the product you would like increase the inventory of.\n"
+      message: "Please enter the id of the product you would like increase the inventory of.\n",
+      validate: function(str) {
+      	if(isNaN(parseInt(str)) || !Number.isInteger(parseInt(str)) || parseInt(str) <= 0) {
+      		return false;
+      	}
+      	return true;
+      }
     },
     {
       name: "addInvProductQty",
       type: "input",
-      message: "Please enter the amount by which you would like to increase the inventory of this product.\n"
+      message: "Please enter the amount by which you would like to increase the inventory of this product.\n",
+      validate: function(str) {
+      	if(isNaN(parseInt(str)) || !Number.isInteger(parseInt(str)) || parseInt(str) <= 0) {
+      		return false;
+      	}
+      	return true;
+      }
     }
     ])
     .then(function(answer) {

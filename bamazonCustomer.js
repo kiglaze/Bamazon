@@ -9,14 +9,14 @@ connection.connect(function(err) {
   	console.log(err);
   	throw err;
   } 
-  start(connection);
+  start();
 });
 
-function start(connection) {
-	queryAllProducts(connection, promptPurchaseProduct);
+function start() {
+	queryAllProducts(promptPurchaseProduct);
 }
 
-function queryAllProducts(connection, callback) {
+function queryAllProducts(callback) {
   connection.query("SELECT * FROM products", function(err, res) {
   	if(res.length > 0) {
   		console.log("item_id | product_name | department_name | price | stock_quantity");
@@ -35,7 +35,13 @@ function promptPurchaseProduct() {
     .prompt({
       name: "productToBuyId",
       type: "input",
-      message: "Please enter the ID of the product you would like to buy.\n"
+      message: "Please enter the ID of the product you would like to buy.\n",
+      validate: function(str) {
+      	if(isNaN(parseInt(str)) || !Number.isInteger(parseInt(str)) || parseInt(str) <= 0) {
+      		return false;
+      	}
+      	return true;
+      }
     })
     .then(function(answer) {
 		var productToBuyId = answer.productToBuyId;
@@ -48,7 +54,13 @@ function promptQtyProduct(product) {
     .prompt({
       name: "productToBuyQty",
       type: "input",
-      message: "Please enter the QUANTITY of the product you would like to buy.\n"
+      message: "Please enter the QUANTITY of the product you would like to buy.\n",
+      validate: function(str) {
+      	if(isNaN(parseInt(str)) || !Number.isInteger(parseInt(str)) || parseInt(str) <= 0) {
+      		return false;
+      	}
+      	return true;
+      }
     })
     .then(function(answer) {
 		var productToBuyQty = answer.productToBuyQty;
