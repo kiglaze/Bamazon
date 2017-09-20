@@ -1,0 +1,32 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Node JS application that attempts to mimic the concepts of an ecommerce store, such as Amazon. Makes use of MySQL database.",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiglaze/Bamazon.git"
+  },
+  "keywords": [
+    "bamazon",
+    "node",
+    "js",
+    "sql",
+    "mysql",
+    "amazon",
+    "ecommerce"
+  ],
+  "author": "Kristin Iris Glaze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kiglaze/Bamazon/issues"
+  },
+  "homepage": "https://github.com/kiglaze/Bamazon#readme",
+  "dependencies": {
+    "inquirer": "^3.3.0",
+    "mysql": "^2.14.1"
+  }
+}
