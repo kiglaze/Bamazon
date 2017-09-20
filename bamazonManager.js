@@ -47,7 +47,7 @@ function promptMenuOptions() {
           break;
 
         case ADD_INVENTORY_MENU_OPTION:
-          console.log("add inv");
+          promptAddProductInventory(endConnection);
           break;
 
         case NEW_PRODUCT_MENU_OPTION:
@@ -126,6 +126,61 @@ function addProduct(productName, departmentName, price, stockQty, callback) {
 	}
 	callback();
   });
+}
+
+function addInventoryToProduct(product, qtyToAdd, callback) {
+  var productId = product.item_id;
+  var updatedStockQty = parseInt(product.stock_quantity) + parseInt(qtyToAdd);
+  connection.query("UPDATE products SET stock_quantity=? WHERE item_id=?", [updatedStockQty, productId], function(err, res) {
+	if(err) {
+		console.log(err);
+		throw err;
+	}
+	console.log(`Updated the quantity of product with id ${product.item_id} and name ${product.product_name}... `
+		+ `Was ${product.stock_quantity}, but now is ${updatedStockQty}`);
+	callback();
+  });
+}
+
+function addInventoryByProductId(id, qtyToAdd, callback) {
+  connection.query("SELECT * FROM products WHERE item_id=?", [id], function(err, res) {
+  	if(err) {
+  		console.log(err);
+  		throw err;
+  	}
+  	if(res.length > 0) {
+  		console.log("item_id | product_name | department_name | price | stock_quantity");
+  		for (var i = 0; i < res.length; i++) {
+	      var product = res[i];
+	    }
+	    console.log("-----------------------------------");
+	    addInventoryToProduct(product, qtyToAdd, callback);
+  	} else {
+  		console.log(`No such product with id ${id}`);
+  		endConnection();
+  	}
+  });
+}
+
+function promptAddProductInventory(callback) {
+	inquirer
+    .prompt([
+    {
+      name: "addInvProductId",
+      type: "input",
+      message: "Please enter the id of the product you would like increase the inventory of.\n"
+    },
+    {
+      name: "addInvProductQty",
+      type: "input",
+      message: "Please enter the amount by which you would like to increase the inventory of this product.\n"
+    }
+    ])
+    .then(function(answer) {
+		var productId = answer.addInvProductId;
+		var qtyIncrease = answer.addInvProductQty;
+		addInventoryByProductId(productId, qtyIncrease, callback);
+    });
 }
 
 function endConnection() {
