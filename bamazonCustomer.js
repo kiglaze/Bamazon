@@ -58,14 +58,42 @@ function promptQtyProduct(product) {
 }
 
 function purchaseProduct(product, qtyToPurchase) {
-	console.log(`BUY ${qtyToPurchase} of the product with id ${product.item_id}`);
-	if(qtyToPurchase > product.stock_quantity) {
+	if(!Number.isInteger(parseInt(qtyToPurchase)) || qtyToPurchase <= 0) {
+		console.log("Please purchase a positive number of this product.");
+		endConnection();
+	} else if(qtyToPurchase > product.stock_quantity) {
 		console.log("Insufficient quantity.");
 		endConnection();
 	} else {
-		console.log("Buying...");
-		// TODO implement product buying code requirements here...
+		var updatedQty = product.stock_quantity - qtyToPurchase;
+		updateProductQty(product, updatedQty, printAmountSpent);
 	}
+}
+
+function updateProductQty(product, updatedQty, callback) {
+  var productId = product.item_id;
+  connection.query("UPDATE products SET stock_quantity=? WHERE item_id=?", [updatedQty, productId], function(err, res) {
+  	if(err) {
+  		console.log(err);
+  		throw err;
+  	}
+  	callback(product, updatedQty);
+  });
+}
+
+function printAmountSpent(product, updatedQty) {
+	var oldQty = product.stock_quantity;
+	if(updatedQty < oldQty) {
+		var qtyPurchased = oldQty - updatedQty;
+		var productPrice = product.price;
+		var amountSpent = qtyPurchased * productPrice;
+		console.log(`Spent $${roundNumber(amountSpent, 2)}`);
+	}
+	endConnection();
+}
+
+function roundNumber(numberToRound, digitsAfterDecimal) {
+	return parseFloat(Math.round(numberToRound * 100) / 100).toFixed(digitsAfterDecimal);
 }
 
 function getProductById(id, callback) {
